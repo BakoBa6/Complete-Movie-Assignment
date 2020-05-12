@@ -9,7 +9,7 @@
 import UIKit
 class Movie{
    let movieTitle:String
-      let posterUrl:String
+      let posterUrlString:String
       let rating:String
       let overview:String
       let dateProduced:String
@@ -20,7 +20,7 @@ class Movie{
         self.movieId = movieId
         self.dateProduced = dateProduced
         self.overview = overview
-        self.posterUrl = posterUrl
+        self.posterUrlString = posterUrl
         self.rating = rating
     }
 }

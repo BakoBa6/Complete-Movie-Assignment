@@ -21,9 +21,6 @@
                         <state key="normal" title="+ View All">
                             <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </state>
-                        <connections>
-                            <action selector="viewAllMoviesPressed:" destination="gTV-IL-0wX" eventType="touchUpInside" id="ogM-88-gpC"/>
-                        </connections>
                     </button>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="pqG-Wh-8NN">
                         <rect key="frame" x="0.0" y="30" width="509" height="101"/>
@@ -58,6 +55,7 @@
             <connections>
                 <outlet property="categoryTitleLabel" destination="zLM-zg-stU" id="vX2-V5-GE5"/>
                 <outlet property="movieCollectionView" destination="pqG-Wh-8NN" id="X0K-yk-45D"/>
+                <outlet property="viewAllButton" destination="8xV-pp-5bN" id="FPr-0w-cGC"/>
             </connections>
             <point key="canvasLocation" x="251.44927536231887" y="97.433035714285708"/>
         </collectionViewCell>

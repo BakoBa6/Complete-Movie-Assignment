@@ -27,6 +27,9 @@ extension HomeViewController:UICollectionViewDataSource{
         }
         categoryCell.movieCollectionView.reloadData()
         categoryCell.movieCollectionView.setCollectionViewCellSize(width: getDesiredWidth(), height: getDesiredHeight())
+        categoryCell.movieCollectionView.reloadData()
+        subscribeViewAllButton(forCell: categoryCell)
+        subscribeCollectionViewCellTap(forCell: categoryCell)
         return categoryCell
     }
     //MARK: - helper methodes
@@ -34,11 +37,26 @@ extension HomeViewController:UICollectionViewDataSource{
         return categories[indexPath.item].categoryTitle
     }
     private func getDesiredWidth()->CGFloat{
-        let width = (view.frame.size.width-10)/3
+        let width = (view.frame.size.width-20)/3
         return width
     }
     private func getDesiredHeight()->CGFloat{
         let height = view.frame.size.height/4
         return height
+    }
+    private func subscribeViewAllButton(forCell cell:CategoryCell){
+        cell.viewAllButton.rx.tap.subscribe { [weak self](_) in
+            self?.selectedCategoryForViewAllMoviesInCategory = cell.category
+            self?.performSegue(withIdentifier: "homeToViewAllMoviesIncategory", sender: self)
+        }.disposed(by: cell.disposeBag)
+    }
+    private func subscribeCollectionViewCellTap(forCell cell:CategoryCell){
+        cell.movieCollectionView.rx.itemSelected.subscribe(onNext: { [weak self](indexPath) in
+            if let category = cell.category{
+                let selectedMovieFromCollectionView = category.categoryMovies[indexPath.item]
+                self?.selectedMovie = selectedMovieFromCollectionView
+            }
+            self?.performSegue(withIdentifier: "homeToDetail", sender: self)
+        }).disposed(by: cell.disposeBag)
     }
 }

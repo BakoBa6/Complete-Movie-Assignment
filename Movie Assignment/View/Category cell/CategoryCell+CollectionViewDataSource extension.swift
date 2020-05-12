@@ -12,28 +12,24 @@ extension CategoryCell:UICollectionViewDataSource{
         if let category = category{
             return category.categoryMovies.count
         }else{
-            return 1
+            return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //        print(AllCategories.sharedCategories.categories[indexPath.section].categoryTitle)
         let movieCell = movieCollectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCell
-        if let stringPosterURL = getPosterURLString(forIndexPath: indexPath){
-            let posterURL = getURLFromString(fromURLString: stringPosterURL)
-            movieCell.moviePosterImage.kf.setImage(with:posterURL)
-        }
         
+        if let url = getPosterURLString(forIndexPath: indexPath)?.convertToURL(){
+            movieCell.moviePosterImage.kf.setImage(with:url)
+        }
         return movieCell
     }
     private func getPosterURLString(forIndexPath indexPath:IndexPath)->String?{
         if let category = category{
-            return category.categoryMovies[indexPath.item].posterUrl
+            return category.categoryMovies[indexPath.item].posterUrlString
         }else{
             return nil
         }
-    }
-    private func getURLFromString(fromURLString URLString:String)->URL?{
-        return  URL(string: URLString)
     }
 }

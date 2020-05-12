@@ -12,6 +12,10 @@ class JSONParser{
     static let sharedParser = JSONParser()
     private init(){}
     func parseJSON(fromJSON Json:JSON?, compilition: @escaping (JSON?)->Void){
-        compilition(Json)
+        if let json = Json{
+         compilition(json)
+        }else{
+            compilition(nil)
+        }
     }
 }

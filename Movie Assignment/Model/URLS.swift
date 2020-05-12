@@ -10,42 +10,90 @@ import Foundation
 enum URLS:String {
     case AllMoviesURL = "https://api.themoviedb.org/3/movie/popular"
     case moviePosterURL = "https://image.tmdb.org/t/p/w500/"
+    case movieDetailURL = "https://api.themoviedb.org/3/movie/"
+    case movieTrailerVideoiURL = "https://api.themoviedb.org/3/movie"
+    case youtubeTrailerVideoURL = "https://www.youtube.com/watch?v="
     //get the parameters for the url request of the chosen enum case
-    static func returnParameters(forType type:URLS,withValue value:String)->[String:String]{
-        switch type {
+    static func getParametersForEnumCase(URLSEnumCase enumCase:URLS,withAdditionalValue additionalValue:String? = nil)->[String:String]{
+        switch enumCase {
         case .AllMoviesURL:
-            return ["api_key":"8460d476d21be7e26a99234d8ca8de51","sort_by":"false", "page" : "1","include_video":"false","primary_release_date.gte":"2019-01-01","with_genres": "\(value)"]
+            if let value = additionalValue{
+                return ["api_key":"8460d476d21be7e26a99234d8ca8de51","sort_by":"false", "page" : "1","include_video":"false","primary_release_date.gte":"2019-01-01","with_genres": value]
+            }
+            else{
+                return[:]
+            }
+            
         case .moviePosterURL:
+            return [:]
+        case .movieDetailURL:
+            return ["api_key":"8460d476d21be7e26a99234d8ca8de51"]
+        case .movieTrailerVideoiURL:
+            return ["api_key":"8460d476d21be7e26a99234d8ca8de51","append_to_response":"videos"]
+        case .youtubeTrailerVideoURL:
             return [:]
         }
     }
     // get the url of the chosen enum case
-    static func getURLFromEnumRawValue(forType type:URLS,withAdditionalValue additionalValue:String? = nil)->URL{
-        switch type {
+    static func getURLFromEnumRawValue(URLSEnumCase enumCase:URLS,withAdditionalValue additionalValue:String? = nil)->URL?{
+        switch enumCase {
         case .AllMoviesURL:
-            return URL(string: type.rawValue )!
+            return URL(string: enumCase.rawValue )
         case .moviePosterURL:
-            if let additionalValue = additionalValue{
-                return URL(string: String(describing:"\(type.rawValue)\(additionalValue))"))!
+            if let value = additionalValue{
+                return URL(string: enumCase.rawValue+value)
             }else{
-                return URL(string: type.rawValue)!
+                return URL(string: enumCase.rawValue)
             }
-        }
-        
-    }
-    //return the string value of the chosen enum case url
-    static func getUrlStringForEnumCase(forType type:URLS,withAdditionalValue additionalValue:String? = nil)->String{
-        switch type {
-        case .AllMoviesURL:
-            return type.rawValue
-        case .moviePosterURL:
-            if let additionalValue = additionalValue{
-                return String(describing:type.rawValue+additionalValue)
+        case .movieDetailURL:
+            if let value = additionalValue{
+                return URL(string:enumCase.rawValue+value+"credits?")
             }else{
-                return type.rawValue
+                return URL(string:enumCase.rawValue )!
+            }
+        case .movieTrailerVideoiURL:
+            if let value = additionalValue{
+                return URL(string:enumCase.rawValue+"/"+value+"?")
+            }else{
+                return URL(string: enumCase.rawValue)!
+            }
+        case .youtubeTrailerVideoURL:
+            if let value = additionalValue{
+                return URL(string: enumCase.rawValue+value)
+            }else{
+                return URL(string: enumCase.rawValue)
             }
             
         }
     }
+    
+    
+    //return the string value of the chosen enum case url
+    static func getUrlStringForEnumRawValue(URLSEnumCase enumCase:URLS,withAdditionalValue additionalValue:String? = nil)->String{
+        switch enumCase {
+        case .AllMoviesURL:
+            return enumCase.rawValue
+        case .moviePosterURL:
+            if let additionalValue = additionalValue{
+                return String(describing:enumCase.rawValue+additionalValue)
+            }else{
+                return enumCase.rawValue
+            }
+            
+        case .movieDetailURL:
+            return enumCase.rawValue
+        case .movieTrailerVideoiURL:
+            if let value = additionalValue{
+                return enumCase.rawValue+value+"?"
+            }else{
+                return enumCase.rawValue
+            }
+        case .youtubeTrailerVideoURL:
+            if let value = additionalValue{
+                return enumCase.rawValue+value
+            }else{
+                return enumCase.rawValue
+            }
+        }
+    }
 }
-

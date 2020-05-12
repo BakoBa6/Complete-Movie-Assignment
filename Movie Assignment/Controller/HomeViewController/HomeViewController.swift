@@ -19,17 +19,20 @@ class HomeViewController: UIViewController {
     var categories:[MovieCategory] = []
     var isCategorySelectionTableViewVisible = false
     var selectedCategory:MovieCategory?
+    var selectedCategoryForViewAllMoviesInCategory:MovieCategory?
+    var selectedMovie:Movie?
+    private let queue = DispatchQueue(label:"appending new categories")
+    
     //MARK: - view methodes part
     override func viewDidLoad() {
         super.viewDidLoad()
         loadMovieData()
         registerCollectionViewCell()
-        setCategoryCollectionViewSize()
+        setCategoryCollectionViewCellSize()
         categoryCollectionView.setDelegateAndDatasource(toObject: self)
         categorySelectionTableView.setDelegateAndDatasource(toObject: self)
     }
     //MARK: - IBAction part
-    
     @IBAction func categorySelectionButtonPressed(_ sender: UIButton) {
         animateCategoryselectionTableView()
     }
@@ -71,8 +74,8 @@ class HomeViewController: UIViewController {
         }
     }
     //setting the size of collection view
-    private func setCategoryCollectionViewSize(){
-        let width = view.frame.size.width
+    private func setCategoryCollectionViewCellSize(){
+        let width = view.frame.size.width-20
         let height = width/1.5
         categoryCollectionView.setCollectionViewCellSize(width: width, height: height)
     }
@@ -80,23 +83,40 @@ class HomeViewController: UIViewController {
     private func registerCollectionViewCell(){
         categoryCollectionView.register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "categoryCell")
     }
-    //MARK: - data loading part
+//MARK: - prepre for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "homeToViewAllMoviesIncategory"{
+            let destinationViewAllVC = segue.destination as! ViewAllMoviesCollectionViewController
+            destinationViewAllVC.category = selectedCategoryForViewAllMoviesInCategory
+        }
+        else{
+            let destinationDetailVC = segue.destination as! MovieDetailTableViewController
+            if let selectedMovie = selectedMovie{
+             destinationDetailVC.selectedMovie = selectedMovie
+            }
+            
+        }
+    }
+//MARK: - data loading part
     func loadMovieData(){
         //requesting data from API
         for category in AllCategories.categories{
-            let parameters = URLS.returnParameters(forType: .AllMoviesURL, withValue: category.genreID)
-            let url = URLS.getURLFromEnumRawValue(forType: .AllMoviesURL)
-            APIRequest.sharedAPIRequest.requestData(fromUrl:url,withParameters: parameters) { [weak self](json) in
-                if let json = json{
-                    let categoryWithMovies = self?.parseMovieJSON(json: json, to: category)
-                    if let categoryWithMovies = categoryWithMovies{
-                        
-                        self?.categories.append(categoryWithMovies)
-                        self?.categoryCollectionView.reloadDataInMainThread()
-                        self?.categorySelectionTableView.reloadInMainThread()
+            let parameters = URLS.getParametersForEnumCase(URLSEnumCase: .AllMoviesURL,withAdditionalValue: category.genreID)
+            if let url = URLS.getURLFromEnumRawValue(URLSEnumCase: .AllMoviesURL){
+                APIRequest.sharedAPIRequest.requestData(fromUrl:url,withParameters: parameters) { [weak self](json) in
+                    if let json = json{
+                        let categoryWithMovies = self?.parseMovieJSON(json: json, to: category)
+                        if let categoryWithMovies = categoryWithMovies{
+                            self?.queue.sync {
+                                self?.categories.append(categoryWithMovies)
+                            }
+                            self?.categoryCollectionView.reloadDataInMainThread()
+                            self?.categorySelectionTableView.reloadInMainThread()
+                        }
                     }
                 }
-            }
+
+            } 
             
         }
         
@@ -108,15 +128,14 @@ class HomeViewController: UIViewController {
         //parsing the data returned from api
         let categoryWithMovies = MovieCategory(genreID: category.genreID, categoryTitle: category.categoryTitle)
         JSONParser.sharedParser.parseJSON(fromJSON: json) { [weak self](json) in
-            if let json = json{
-                let result = json["results"]
+                let result = json!["results"]
                 for i in 0 ..< result.count{
                     // movie title
                     let title = result[i]["title"].stringValue
                     // movie poster path
                     let posterPath = result[i]["poster_path"].stringValue
                     // the complete movie poster url string
-                    let posterURLString = URLS.getUrlStringForEnumCase(forType: .moviePosterURL,withAdditionalValue: posterPath)
+                    let posterURLString = URLS.getUrlStringForEnumRawValue(URLSEnumCase: .moviePosterURL,withAdditionalValue: posterPath)
                     // movie overview
                     let overview = result[i]["overview"].stringValue
                     // date when the movie was produced
@@ -128,13 +147,12 @@ class HomeViewController: UIViewController {
                     //creating a movie object with above information with the help of a helper method
                     let movie = self?.getMovie(title: title, posterURL: posterURLString, overview: overview, dateProduced: dateProduced, rating: rating, movieId: movieId)
                     //adding movie to the category with help of a helper method
-                    self?.addMovieToCategory(movie: movie, toCategory: categoryWithMovies)
+                    if let movie = movie{
+                        self?.addMovieToCategory(movie: movie, toCategory: categoryWithMovies)
+                    }
                 }
             }
-        }
-        
         return categoryWithMovies
-        
     }
     
 }

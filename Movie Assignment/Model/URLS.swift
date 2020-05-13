@@ -13,6 +13,7 @@ enum URLS:String {
     case movieDetailURL = "https://api.themoviedb.org/3/movie/"
     case movieTrailerVideoiURL = "https://api.themoviedb.org/3/movie"
     case youtubeTrailerVideoURL = "https://www.youtube.com/watch?v="
+    case searchForMovieURL = "https://api.themoviedb.org/3/search/movie?"
     //get the parameters for the url request of the chosen enum case
     static func getParametersForEnumCase(URLSEnumCase enumCase:URLS,withAdditionalValue additionalValue:String? = nil)->[String:String]{
         switch enumCase {
@@ -32,7 +33,13 @@ enum URLS:String {
             return ["api_key":"8460d476d21be7e26a99234d8ca8de51","append_to_response":"videos"]
         case .youtubeTrailerVideoURL:
             return [:]
+        case .searchForMovieURL:
+            if let value = additionalValue{
+                return ["api_key":"8460d476d21be7e26a99234d8ca8de51","query":value]
+            }else{
+            return [:]
         }
+    }
     }
     // get the url of the chosen enum case
     static func getURLFromEnumRawValue(URLSEnumCase enumCase:URLS,withAdditionalValue additionalValue:String? = nil)->URL?{
@@ -64,6 +71,8 @@ enum URLS:String {
                 return URL(string: enumCase.rawValue)
             }
             
+        case .searchForMovieURL:
+            return URL(string: enumCase.rawValue)
         }
     }
     
@@ -94,6 +103,8 @@ enum URLS:String {
             }else{
                 return enumCase.rawValue
             }
+        case .searchForMovieURL:
+            return enumCase.rawValue
         }
     }
 }

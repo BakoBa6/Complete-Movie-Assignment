@@ -37,6 +37,10 @@
 		213D7D1B246AF58500AE988C /* MoviePosterImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D7D19246AF58500AE988C /* MoviePosterImageCell.swift */; };
 		213D7D1C246AF58500AE988C /* MoviePosterImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 213D7D1A246AF58500AE988C /* MoviePosterImageCell.xib */; };
 		213D7D1F246B3AC400AE988C /* WatchTrailerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D7D1E246B3AC300AE988C /* WatchTrailerViewController.swift */; };
+		213D7D22246B702B00AE988C /* SearchForMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D7D21246B702B00AE988C /* SearchForMovieViewController.swift */; };
+		213D7D24246B705F00AE988C /* SearchForMovieViewController+CollectionViewdataSource Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D7D23246B705F00AE988C /* SearchForMovieViewController+CollectionViewdataSource Extension.swift */; };
+		213D7D26246B709400AE988C /* SearchForMovieViewController+CollectionViewDelegate Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D7D25246B709400AE988C /* SearchForMovieViewController+CollectionViewDelegate Extension.swift */; };
+		213D7D28246B842500AE988C /* SearchForMovieViewController+SearchBarDelegate Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213D7D27246B842500AE988C /* SearchForMovieViewController+SearchBarDelegate Extension.swift */; };
 		214B87B2246789CE000EFBF0 /* TableView+SetDelegateAnddatasource Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214B87B1246789CE000EFBF0 /* TableView+SetDelegateAnddatasource Extension.swift */; };
 		214B87B424678AEB000EFBF0 /* HomeViewController+TableViewDelegate Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214B87B324678AEB000EFBF0 /* HomeViewController+TableViewDelegate Extension.swift */; };
 		214B87B624678B0E000EFBF0 /* HomeViewController+TableViewDataSource Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214B87B524678B0E000EFBF0 /* HomeViewController+TableViewDataSource Extension.swift */; };
@@ -83,6 +87,10 @@
 		213D7D19246AF58500AE988C /* MoviePosterImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviePosterImageCell.swift; sourceTree = "<group>"; };
 		213D7D1A246AF58500AE988C /* MoviePosterImageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MoviePosterImageCell.xib; sourceTree = "<group>"; };
 		213D7D1E246B3AC300AE988C /* WatchTrailerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchTrailerViewController.swift; sourceTree = "<group>"; };
+		213D7D21246B702B00AE988C /* SearchForMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForMovieViewController.swift; sourceTree = "<group>"; };
+		213D7D23246B705F00AE988C /* SearchForMovieViewController+CollectionViewdataSource Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchForMovieViewController+CollectionViewdataSource Extension.swift"; sourceTree = "<group>"; };
+		213D7D25246B709400AE988C /* SearchForMovieViewController+CollectionViewDelegate Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchForMovieViewController+CollectionViewDelegate Extension.swift"; sourceTree = "<group>"; };
+		213D7D27246B842500AE988C /* SearchForMovieViewController+SearchBarDelegate Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchForMovieViewController+SearchBarDelegate Extension.swift"; sourceTree = "<group>"; };
 		214B87B1246789CE000EFBF0 /* TableView+SetDelegateAnddatasource Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TableView+SetDelegateAnddatasource Extension.swift"; sourceTree = "<group>"; };
 		214B87B324678AEB000EFBF0 /* HomeViewController+TableViewDelegate Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+TableViewDelegate Extension.swift"; sourceTree = "<group>"; };
 		214B87B524678B0E000EFBF0 /* HomeViewController+TableViewDataSource Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewController+TableViewDataSource Extension.swift"; sourceTree = "<group>"; };
@@ -175,6 +183,7 @@
 		21009B8224633FAE00813502 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				213D7D20246B6FFA00AE988C /* SearchForMovieViewController */,
 				213D7D1D246B3A1700AE988C /* WatchTrailerViewController */,
 				2168DF8C2468E733005D2696 /* ViewAllMoviesViewController */,
 				2168DF852468E726005D2696 /* MovieDetailViewController */,
@@ -277,6 +286,17 @@
 				213D7D1E246B3AC300AE988C /* WatchTrailerViewController.swift */,
 			);
 			path = WatchTrailerViewController;
+			sourceTree = "<group>";
+		};
+		213D7D20246B6FFA00AE988C /* SearchForMovieViewController */ = {
+			isa = PBXGroup;
+			children = (
+				213D7D21246B702B00AE988C /* SearchForMovieViewController.swift */,
+				213D7D23246B705F00AE988C /* SearchForMovieViewController+CollectionViewdataSource Extension.swift */,
+				213D7D25246B709400AE988C /* SearchForMovieViewController+CollectionViewDelegate Extension.swift */,
+				213D7D27246B842500AE988C /* SearchForMovieViewController+SearchBarDelegate Extension.swift */,
+			);
+			path = SearchForMovieViewController;
 			sourceTree = "<group>";
 		};
 		214B87B02467899E000EFBF0 /* UITableView+Extension */ = {
@@ -460,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				213D7D26246B709400AE988C /* SearchForMovieViewController+CollectionViewDelegate Extension.swift in Sources */,
 				21009B8C2463414900813502 /* MovieCategory.swift in Sources */,
 				21009BAD246582F300813502 /* AllCategories.swift in Sources */,
 				21009B8E2463415100813502 /* Movie.swift in Sources */,
@@ -469,6 +490,7 @@
 				2168DF922468E733005D2696 /* ViewAllMoviesCollectionViewController.swift in Sources */,
 				2168DF652468125B005D2696 /* Bool+NigateExtension.swift in Sources */,
 				213D7D0D246AE42100AE988C /* String+ToURL Extension.swift in Sources */,
+				213D7D22246B702B00AE988C /* SearchForMovieViewController.swift in Sources */,
 				21009B902463433C00813502 /* URLS.swift in Sources */,
 				21009B882463407500813502 /* CategoryCell.swift in Sources */,
 				2168DF962468E733005D2696 /* ViewAllMoviesViewController+CollectionViewDelegate Extension.swift in Sources */,
@@ -479,6 +501,7 @@
 				2168DF6924681732005D2696 /* TableView + RealodInMainThread Extension.swift in Sources */,
 				21009B9C2464AEB900813502 /* HomeViewController+CollectionViewDatasource.swift in Sources */,
 				21009B6D24633F8E00813502 /* AppDelegate.swift in Sources */,
+				213D7D28246B842500AE988C /* SearchForMovieViewController+SearchBarDelegate Extension.swift in Sources */,
 				21009B96246373F000813502 /* JSONParser.swift in Sources */,
 				213D7D12246AF56200AE988C /* MovieRatingAndTrailerButoonCell.swift in Sources */,
 				21009B842463405700813502 /* MovieCell.swift in Sources */,
@@ -488,6 +511,7 @@
 				2168DF942468E733005D2696 /* ViewAllMoviesViewController+CollectionViewDataSource Extension.swift in Sources */,
 				213D7D16246AF56C00AE988C /* MovieNormalCellWithLabel.swift in Sources */,
 				214B87B624678B0E000EFBF0 /* HomeViewController+TableViewDataSource Extension.swift in Sources */,
+				213D7D24246B705F00AE988C /* SearchForMovieViewController+CollectionViewdataSource Extension.swift in Sources */,
 				213D7D1B246AF58500AE988C /* MoviePosterImageCell.swift in Sources */,
 				214B87B424678AEB000EFBF0 /* HomeViewController+TableViewDelegate Extension.swift in Sources */,
 				213D7D1F246B3AC400AE988C /* WatchTrailerViewController.swift in Sources */,

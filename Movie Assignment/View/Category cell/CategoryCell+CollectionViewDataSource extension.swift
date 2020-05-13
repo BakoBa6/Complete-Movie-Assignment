@@ -18,7 +18,7 @@ extension CategoryCell:UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //        print(AllCategories.sharedCategories.categories[indexPath.section].categoryTitle)
-        let movieCell = movieCollectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCell
+        let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCell
         
         if let url = getPosterURLString(forIndexPath: indexPath)?.convertToURL(){
             movieCell.moviePosterImage.kf.setImage(with:url)

@@ -103,9 +103,9 @@ class HomeViewController: UIViewController {
         for category in AllCategories.categories{
             let parameters = URLS.getParametersForEnumCase(URLSEnumCase: .AllMoviesURL,withAdditionalValue: category.genreID)
             if let url = URLS.getURLFromEnumRawValue(URLSEnumCase: .AllMoviesURL){
-                APIRequest.sharedAPIRequest.requestData(fromUrl:url,withParameters: parameters) { [weak self](json) in
-                    if let json = json{
-                        let categoryWithMovies = self?.parseMovieJSON(json: json, to: category)
+                APIRequest.sharedAPIRequest.requestData(fromUrl:url,withParameters: parameters) { [weak self](allMoviesJSON) in
+                    if let allMoviesJSON = allMoviesJSON{
+                        let categoryWithMovies = self?.parseMovieJSON(json: allMoviesJSON, to: category)
                         if let categoryWithMovies = categoryWithMovies{
                             self?.queue.sync {
                                 self?.categories.append(categoryWithMovies)

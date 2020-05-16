@@ -16,12 +16,13 @@ extension MovieDetailTableViewController{
         if let selectedMovie = selectedMovie{
             tableView.estimatedRowHeight = 60
             tableView.rowHeight = UITableView.automaticDimension
+            let deviceHeight = view.frame.size.height
             if indexPath.row == 0{
                 let imageCell = tableView.dequeueReusableCell(withIdentifier: "posterCell", for: indexPath) as! MoviePosterImageCell
                 if let url = selectedMovie.posterUrlString.convertToURL(){
                     imageCell.posterImageView.kf.setImage(with: url)
                 }
-                tableView.rowHeight = view.frame.size.height/2
+                tableView.rowHeight = deviceHeight/2
                 imageCell.backgroundColor = .clear
                 return imageCell
             }
@@ -31,7 +32,9 @@ extension MovieDetailTableViewController{
             else if indexPath.row == 1{
                 let titleCell =  tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath) as!MovieNormalCellWithLabel
                 titleCell.normalCellLabel.text = "Title: \(String(describing: selectedMovie.movieTitle))"
-                titleCell.normalCellLabel.font = titleCell.normalCellLabel.font.withSize(30)
+                
+                titleCell.normalCellLabel.font = titleCell.normalCellLabel.font.withSize((deviceHeight)*titleLabelTextFontConstant)
+                
                 titleCell.backgroundColor = .clear
                 return titleCell
             }
@@ -41,8 +44,10 @@ extension MovieDetailTableViewController{
             
             else if indexPath.row == 2{
                 let dateCell =  tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath) as!MovieNormalCellWithLabel
-                dateCell.normalCellLabel.text = "Date \(String(describing: selectedMovie.dateProduced))"
-                dateCell.normalCellLabel.font = dateCell.normalCellLabel.font.withSize(20)
+                
+                dateCell.normalCellLabel.font = dateCell.normalCellLabel.font.withSize((deviceHeight)*otherLabelTextFontContstant)
+                
+                dateCell.normalCellLabel.text = "Date: \(String(describing: selectedMovie.dateProduced))"
                 tableView.rowHeight = 70
                 dateCell.backgroundColor = .clear
                 return dateCell
@@ -53,12 +58,12 @@ extension MovieDetailTableViewController{
             
             else if indexPath.row == 3{
                 let actorsCell =  tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath) as!MovieNormalCellWithLabel
-                if let actors = movieActors{
-                    actorsCell.normalCellLabel.text = "Actors: \(String(describing: actors))"
-                }
+                
+                actorsCell.normalCellLabel.font = actorsCell.normalCellLabel.font.withSize((deviceHeight)*otherLabelTextFontContstant)
+                
+                actorsCell.normalCellLabel.text = "Actors: \(String(describing: selectedMovie.actors))"
                 actorsCell.backgroundColor = .clear
-                actorsCell.normalCellLabel.font = actorsCell.normalCellLabel.font.withSize(20)
-                tableView.rowHeight = 70
+                tableView.rowHeight = deviceHeight*tableViewRowHeightConstant
                 return actorsCell
             }
                 
@@ -66,12 +71,11 @@ extension MovieDetailTableViewController{
             
             else if indexPath.row == 4{
                 let directorCell =  tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath) as!MovieNormalCellWithLabel
-                if let director = movieDirector{
-                    directorCell.normalCellLabel.text = "Director: \(String(describing: director))"
-                }
                 
-                directorCell.normalCellLabel.font = directorCell.normalCellLabel.font.withSize(20)
-                tableView.rowHeight = 70
+                directorCell.normalCellLabel.font = directorCell.normalCellLabel.font.withSize((deviceHeight)*otherLabelTextFontContstant)
+                
+                directorCell.normalCellLabel.text = "Director: \(String(describing: selectedMovie.director))"
+                tableView.rowHeight = deviceHeight*tableViewRowHeightConstant
                 directorCell.backgroundColor = .clear
                 return directorCell
             }
@@ -80,8 +84,10 @@ extension MovieDetailTableViewController{
             
             else if indexPath.row == 5{
                 let overviewCell =  tableView.dequeueReusableCell(withIdentifier: "normalCell", for: indexPath) as!MovieNormalCellWithLabel
+                
+                overviewCell.normalCellLabel.font = overviewCell.normalCellLabel.font.withSize((deviceHeight)*otherLabelTextFontContstant)
+                
                 overviewCell.normalCellLabel.text = selectedMovie.overview
-                overviewCell.normalCellLabel.font = overviewCell.normalCellLabel.font.withSize(20)
                 overviewCell.backgroundColor = .clear
                 return overviewCell
             }
@@ -91,8 +97,7 @@ extension MovieDetailTableViewController{
             else{
                 let ratingAndtrailerCell = tableView.dequeueReusableCell(withIdentifier: "ratingAndTrailerCell", for: indexPath) as!MovieRatingAndTrailerButoonCell
                 ratingAndtrailerCell.ratingLabel.text = selectedMovie.rating
-                ratingAndtrailerCell.ratingLabel.font.withSize(20)
-                tableView.rowHeight = 70
+                tableView.rowHeight = deviceHeight*tableViewRowHeightConstant
                 ratingAndtrailerCell.backgroundColor = .clear
                 subscribeWatchTrailerButton(forCell: ratingAndtrailerCell)
                 return ratingAndtrailerCell

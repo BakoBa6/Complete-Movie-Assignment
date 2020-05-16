@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Kingfisher
 import SwiftyJSON
 class HomeViewController: UIViewController {
     //MARK: -  IBOutlet part
@@ -21,6 +20,7 @@ class HomeViewController: UIViewController {
     var selectedCategory:MovieCategory?
     var selectedCategoryForViewAllMoviesInCategory:MovieCategory?
     var selectedMovie:Movie?
+    let categorySelectionTableViewConstant:CGFloat = 0.018
     private let queue = DispatchQueue(label:"appending new categories")
     
     //MARK: - view methodes part
@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
         loadMovieData()
         registerCollectionViewCell()
         setCategoryCollectionViewCellSize()
+        registerTableViewCell()
         categoryCollectionView.setDelegateAndDatasource(toObject: self)
         categorySelectionTableView.setDelegateAndDatasource(toObject: self)
     }
@@ -37,9 +38,13 @@ class HomeViewController: UIViewController {
         animateCategoryselectionTableView()
     }
     //MARK: - helper methodes part
+    // register table view cell
+    private func registerTableViewCell(){
+        categorySelectionTableView.register(UITableViewCell.self, forCellReuseIdentifier: "categorySelectionCell")
+    }
     //animating the tableView
     func animateCategoryselectionTableView(){
-        isCategorySelectionTableViewVisible.nigate()
+        isCategorySelectionTableViewVisible.negate()
         if isCategorySelectionTableViewVisible{
             setCategorySelectionTableViewVisible()
         }
@@ -76,14 +81,14 @@ class HomeViewController: UIViewController {
     //setting the size of collection view
     private func setCategoryCollectionViewCellSize(){
         let width = view.frame.size.width-20
-        let height = width/1.5
+        let height = view.frame.size.height/3
         categoryCollectionView.setCollectionViewCellSize(width: width, height: height)
     }
     //registering collectionView custom cell
     private func registerCollectionViewCell(){
         categoryCollectionView.register(UINib(nibName: "CategoryCell", bundle: nil), forCellWithReuseIdentifier: "categoryCell")
     }
-//MARK: - prepre for segue
+    //MARK: - prepre for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "homeToViewAllMoviesIncategory"{
             let destinationViewAllVC = segue.destination as! ViewAllMoviesCollectionViewController
@@ -92,9 +97,8 @@ class HomeViewController: UIViewController {
         else{
             let destinationDetailVC = segue.destination as! MovieDetailTableViewController
             if let selectedMovie = selectedMovie{
-             destinationDetailVC.selectedMovie = selectedMovie
+                destinationDetailVC.selectedMovie = selectedMovie
             }
-            
         }
     }
 //MARK: - data loading part
@@ -103,7 +107,11 @@ class HomeViewController: UIViewController {
         for category in AllCategories.categories{
             let parameters = URLS.getParametersForEnumCase(URLSEnumCase: .AllMoviesURL,withAdditionalValue: category.genreID)
             if let url = URLS.getURLFromEnumRawValue(URLSEnumCase: .AllMoviesURL){
-                APIRequest.sharedAPIRequest.requestData(fromUrl:url,withParameters: parameters) { [weak self](allMoviesJSON) in
+                APIRequest.sharedAPIRequest.requestData(fromUrl:url,withParameters: parameters, forViewController: self,
+                 noInternetConnectionHandler: {
+                    self.loadMovieData()
+                })
+                { [weak self](allMoviesJSON) in
                     if let allMoviesJSON = allMoviesJSON{
                         let categoryWithMovies = self?.parseMovieJSON(json: allMoviesJSON, to: category)
                         if let categoryWithMovies = categoryWithMovies{
@@ -115,7 +123,6 @@ class HomeViewController: UIViewController {
                         }
                     }
                 }
-
             } 
             
         }

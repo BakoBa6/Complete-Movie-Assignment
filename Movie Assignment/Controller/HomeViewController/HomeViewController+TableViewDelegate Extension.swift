@@ -11,7 +11,7 @@ extension HomeViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0{
-            isCategorySelectionTableViewVisible.nigate()
+            isCategorySelectionTableViewVisible.negate()
             categorySelectionButton.setTitle("All", for: .normal)
             selectedCategory = nil
         }else{

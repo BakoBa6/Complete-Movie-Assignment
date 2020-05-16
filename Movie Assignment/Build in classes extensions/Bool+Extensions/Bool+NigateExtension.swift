@@ -8,7 +8,7 @@
 
 import Foundation
 extension Bool{
-    mutating func nigate(){
+    mutating func negate(){
         self = !self
     }
 }

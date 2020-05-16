@@ -1,9 +1,12 @@
 PODS:
   - Alamofire (4.9.1)
-  - Kingfisher (5.13.0):
-    - Kingfisher/Core (= 5.13.0)
-  - Kingfisher/Core (5.13.0)
+  - Kingfisher (4.10.1)
   - ReachabilitySwift (5.0.0)
+  - Realm (4.4.1):
+    - Realm/Headers (= 4.4.1)
+  - Realm/Headers (4.4.1)
+  - RealmSwift (4.4.1):
+    - Realm (= 4.4.1)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -16,6 +19,7 @@ DEPENDENCIES:
   - Alamofire
   - Kingfisher
   - ReachabilitySwift
+  - RealmSwift
   - RxCocoa
   - RxSwift
   - SwiftyJSON
@@ -25,6 +29,8 @@ SPEC REPOS:
     - Alamofire
     - Kingfisher
     - ReachabilitySwift
+    - Realm
+    - RealmSwift
     - RxCocoa
     - RxRelay
     - RxSwift
@@ -32,13 +38,15 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
-  Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
+  Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
+  Realm: 4eb04d7487bd43c0581256f40b424eafb711deff
+  RealmSwift: 3eb8924ff7100df5928c7602f71d0fec51e7c9c5
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 8906808784d1a7de6733a00f7f836296742f4598
+PODFILE CHECKSUM: f87ebd3cf0bac5f7e282bfe00c6cd9f172f16821
 
 COCOAPODS: 1.8.4

@@ -42,7 +42,11 @@ class WatchTrailerViewController: UIViewController {
         let parameters = URLS.getParametersForEnumCase(URLSEnumCase:.movieTrailerVideoiURL)
         if let movieID = movieID{
             if let url = URLS.getURLFromEnumRawValue(URLSEnumCase: .movieTrailerVideoiURL,withAdditionalValue: movieID){
-                APIRequest.sharedAPIRequest.requestData(fromUrl: url, withParameters: parameters) {[weak self] (movieTrailerJSON) in
+                APIRequest.sharedAPIRequest.requestData(fromUrl: url, withParameters: parameters, forViewController: self,
+                    noInternetConnectionHandler: {
+                    self.loadData()
+                })
+                {[weak self] (movieTrailerJSON) in
                     if let movieTrailerJSON = movieTrailerJSON{
                         self?.parseMovieTrailerJSON(fromJSON: movieTrailerJSON)
                     }

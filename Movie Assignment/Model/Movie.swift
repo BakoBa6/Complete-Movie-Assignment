@@ -8,13 +8,15 @@
 
 import UIKit
 class Movie{
-   let movieTitle:String
-      let posterUrlString:String
-      let rating:String
-      let overview:String
-      let dateProduced:String
-      let movieId:String
-      var isFavourite = false
+    let movieTitle:String
+    let posterUrlString:String
+    let rating:String
+    let overview:String
+    let dateProduced:String
+    let movieId:String
+    var actors = ""
+    var director = ""
+    var isFavorite = false
     init (movieTitle:String, posterUrl: String, rating: String, overview: String, dateProduced: String, movieId: String){
         self.movieTitle = movieTitle
         self.movieId = movieId

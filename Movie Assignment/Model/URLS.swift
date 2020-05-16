@@ -54,7 +54,7 @@ enum URLS:String {
             }
         case .movieDetailURL:
             if let value = additionalValue{
-                return URL(string:enumCase.rawValue+value+"credits?")
+                return URL(string:enumCase.rawValue+value+"/credits?")
             }else{
                 return URL(string:enumCase.rawValue )!
             }

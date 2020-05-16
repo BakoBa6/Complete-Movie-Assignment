@@ -14,6 +14,9 @@ extension HomeViewController:UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let categorySellectionTableViewCell = categorySelectionTableView.dequeueReusableCell(withIdentifier: "categorySelectionCell", for: indexPath)
+        
+        categorySellectionTableViewCell.textLabel!.font = categorySellectionTableViewCell.textLabel!.font.withSize((view.frame.size.height)*categorySelectionTableViewConstant)
+        
         if indexPath.row == 0{
             categorySellectionTableViewCell.textLabel!.text = "All"
         }else{

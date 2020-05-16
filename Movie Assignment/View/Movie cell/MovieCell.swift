@@ -16,7 +16,7 @@ class MovieCell: UICollectionViewCell {
     }
     //MARK: - helper methodes
     private func setCollectionViewCorenerRadus(){
-        self.layer.cornerRadius = 15
+        self.layer.cornerRadius = 20
     }
 
 }

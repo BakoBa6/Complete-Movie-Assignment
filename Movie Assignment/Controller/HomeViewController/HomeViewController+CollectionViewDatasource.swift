@@ -41,7 +41,7 @@ extension HomeViewController:UICollectionViewDataSource{
         return width
     }
     private func getDesiredHeight()->CGFloat{
-        let height = view.frame.size.height/4
+        let height = view.frame.size.height/3.5
         return height
     }
     private func subscribeViewAllButton(forCell cell:CategoryCell){

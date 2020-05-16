@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '9.0'
 
 target 'Movie Assignment' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -8,8 +8,9 @@ target 'Movie Assignment' do
   # Pods for Movie Assignment
  pod 'Alamofire'
  pod 'SwiftyJSON'
- pod 'Kingfisher'
  pod 'ReachabilitySwift'
  pod 'RxSwift'
  pod 'RxCocoa'
+ pod 'RealmSwift'
+ pod 'Kingfisher'
 end
